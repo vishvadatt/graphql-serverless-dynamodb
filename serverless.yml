@@ -1,0 +1,51 @@
+service: GraphQl-DynamoDB-eu-west-1
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+  lambdaHashingVersion: 20201221
+
+functions:
+  getAllBook:
+    handler: queryHandler.getAllBook
+    events:
+      - http:
+          path : /book
+          method : get
+          cors : true
+
+  AddBook:
+    handler: queryHandler.AddBook
+    events:
+      - http:
+          path : /createBook
+          method : post
+          cors : true
+
+  getBookByTitle:
+    handler: queryHandler.getBook
+    events:
+      - http:
+          path : /getBook
+          method : get
+          cors : true
+
+  deleteByTitle:
+    handler: queryHandler.deleteBookByTitle
+    events:
+      - http:
+          path : /deleteBook
+          method : delete
+          cors : true
+
+  updateBook:
+    handler: queryHandler.updateBookByTitle
+    events:
+      - http:
+          path : /updateBook
+          method : put
+          cors : true
+
+plugins:
+  - serverless-offline
